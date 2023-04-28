@@ -37,7 +37,8 @@ class Variable {
     }
 
     fun setValue(v: String) {
-
+        if (value is StringValue) (value as StringValue).value = v
+        else value = StringValue(v)
     }
 
     fun getAt(index: Int): Variable =
@@ -55,7 +56,7 @@ class Variable {
             listOf(this)
         }
 
-    override fun toString(): String = value.toString() ?: ""
+    override fun toString(): String = value.toString()
 
     fun toInteger(): Int = value.toInteger()
 

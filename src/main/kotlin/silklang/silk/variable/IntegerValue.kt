@@ -25,8 +25,6 @@ class IntegerValue : AbstractValue {
         }
     }
 
-    fun getVarType(): VarType = VarType.Integer
-
     override fun toString(): String = value.toString()
     override fun toInteger(): Int = value
     override fun toFloat(): Double = value.toDouble()
