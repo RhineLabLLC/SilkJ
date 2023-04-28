@@ -184,7 +184,7 @@ class LexicalHelper(private val lexer: LexicalAnalyzer, text: String? = null) {
                     break
                 }
                 c == '\r' || c == '\n' -> {
-                    // lexer.onError(ErrorCode.NewLineInString)
+                    lexer.onError(ErrorCode.NEW_LINE_IN_STRING)
                     break
                 }
                 c == Escape -> {

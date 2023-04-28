@@ -2,6 +2,7 @@ package silklang.silk.compiler
 
 import silklang.silk.utility.Extensions.isHexDigit
 import silklang.silk.utility.Extensions.makeQuoted
+import kotlin.Error
 
 class LexicalAnalyzer(private var source: String? = null) {
     // symbol characters
@@ -37,7 +38,7 @@ class LexicalAnalyzer(private var source: String? = null) {
         )
 
         // symbol operator lookup
-        val symboloperatorLookup = mapOf(
+        val symbolOperatorLookup = mapOf(
             "and" to TokenType.And,
             "or" to TokenType.Or,
             "xor" to TokenType.Xor,
@@ -114,8 +115,8 @@ class LexicalAnalyzer(private var source: String? = null) {
             // symbol (keyword, symbol, function or character-based operator)
             if (symbolFirstChars.contains(c)) {
                 tokenValue = lexHelper.parseWhile { symbolChars.contains(it) }
-                return if (symboloperatorLookup.containsKey(tokenValue)) {
-                    tokenType = symboloperatorLookup[tokenValue]!!
+                return if (symbolOperatorLookup.containsKey(tokenValue)) {
+                    tokenType = symbolOperatorLookup[tokenValue]!!
                     Token(tokenType, tokenValue, tokenLine)
                 } else if (Keywords.isKeyword(tokenValue)) {
                     Token(TokenType.Keyword, tokenValue, tokenLine).keyword(Keywords.getKeyword(tokenValue))
@@ -204,7 +205,7 @@ class LexicalAnalyzer(private var source: String? = null) {
 
             // We don't know what to do with this character
             lexHelper.moveAhead()
-            // onError(ErrorCode.UnexpectedCharacter, makeQuoted(c))
+            onError(ErrorCode.UNEXPECTED_CHARACTER)
         }
     }
 
@@ -230,5 +231,10 @@ class LexicalAnalyzer(private var source: String? = null) {
 
     fun ungetToken(token: Token) {
         savedUngetToken = token
+    }
+
+    fun onError(code: ErrorCode) {
+        val error = Error(ErrorLevel.ERROR, code, this.currentLine)
+        throw Error(error.toString())
     }
 }
