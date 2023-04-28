@@ -56,14 +56,13 @@ enum class TokenType(val flag: Int) {
 /**
  * Class representing a single token in the input string.
  */
-internal class Token(
+class Token(
     val type: TokenType,
     val value: String,
-    val keyword: Keyword?,
-    val line: Int
+    val line: Int,
 ) {
     init {
-        assert(if (type == TokenType.Keyword) keyword != null else keyword == null)
+        // assert(if (type == TokenType.Keyword) keyword != null else keyword == null)
     }
 
     /**
@@ -75,6 +74,11 @@ internal class Token(
      * Returns true if this token is an operator.
      */
     val isOperator get() = type.flag.hasFlag(TokenTypeFlag.Operator.flag)
+
+    /**
+     * Keyword was before in the constructor
+     */
+    var keyword: Keyword = Keyword.NullKeyword
 
     /**
      * TokenType to ByteCode lookup. Should include all token types that are operators.
@@ -101,6 +105,8 @@ internal class Token(
             TokenType.LessThanOrEqual to ByteCode.EvalIsLessThanOrEqual,
         )
     }
+
+    fun keyword(keyword: Keyword) = apply { this.keyword = keyword }
 
     /**
      * Gets the corresponding bytecode for this operator token.

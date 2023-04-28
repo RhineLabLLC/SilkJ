@@ -55,12 +55,9 @@ object Keywords {
      * If [name] is a keyword, this method returns true and sets [keyword]
      * to the corresponding [Keyword] value. Otherwise, this method returns false.
      */
-    fun isKeyword(name: String, keyword: Out<Keyword>): Boolean {
+    fun getKeyword(name: String): Keyword {
         assert(isValidSymbolName(name))
-        return keywordLookup[name]?.let { k ->
-            keyword.value = k
-            true
-        } ?: false
+        return keywordLookup[name]!!
     }
 
     /**
