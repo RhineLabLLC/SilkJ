@@ -7,7 +7,7 @@ enum class ErrorLevel(val description: String) {
     override fun toString(): String = description
 }
 
-enum class ErrorCode(val description: String) {
+enum class ErrorCode(private val description: String) {
     NO_ERROR("Operation completed successfully"),
     TOO_MANY_ERRORS("Too many errors encountered"),
     INTERNAL_ERROR("Internal error"),

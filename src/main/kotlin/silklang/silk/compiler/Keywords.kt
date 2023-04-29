@@ -73,7 +73,7 @@ object Keywords {
     /**
      * Tests if all characters in the given name are valid identifier characters.
      */
-    fun isValidSymbolName(name: String): Boolean = name.matches(Regex("[_a-zA-Z][_a-zA-Z0-9]*"))
+    private fun isValidSymbolName(name: String): Boolean = name.matches(Regex("[_a-zA-Z][_a-zA-Z0-9]*"))
 
     /**
      * Tests if a name string is a keyword or equal to "main".
@@ -83,5 +83,3 @@ object Keywords {
         return isKeyword(name) || name.equals("Main", ignoreCase = true)
     }
 }
-
-class Out<T>(var value: T) // Helper class for out parameters (not available in Kotlin)
