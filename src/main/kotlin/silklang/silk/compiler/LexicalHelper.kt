@@ -177,17 +177,16 @@ class LexicalHelper(private val lexer: LexicalAnalyzer, text: String? = null) {
         index++
         val builder = StringBuilder()
         while (!endOfText) {
-            val c = text[index]
-            when {
-                c == quote -> {
+            when (val c = text[index]) {
+                quote -> {
                     index++
                     break
                 }
-                c == '\r' || c == '\n' -> {
+                '\r', '\n' -> {
                     lexer.onError(ErrorCode.NEW_LINE_IN_STRING)
                     break
                 }
-                c == Escape -> {
+                Escape -> {
                     index++
                     if (!endOfText) {
                         val r = text[index]
@@ -195,6 +194,7 @@ class LexicalHelper(private val lexer: LexicalAnalyzer, text: String? = null) {
                             EscapeCharacterLookup.containsKey(r) -> {
                                 builder.append(EscapeCharacterLookup[r])
                             }
+
                             r == '\r' || r == '\n' -> {
                                 builder.append(r)
                                 if (r == '\r' && peek(1) == '\n') {
@@ -202,6 +202,7 @@ class LexicalHelper(private val lexer: LexicalAnalyzer, text: String? = null) {
                                     builder.append(text[index])
                                 }
                             }
+
                             else -> {
                                 builder.append(Escape)
                                 builder.append(r)

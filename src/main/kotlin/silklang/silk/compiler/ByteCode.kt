@@ -53,7 +53,11 @@ enum class ByteCode {
     EvalIsLessThan,
     EvalIsLessThanOrEqual,
     AssignListVariableMulti,
-    EvalListVariableMulti
+    EvalListVariableMulti;
+
+    companion object {
+        fun getByteCodeByOrdinal(ordinal: Int) = values().firstOrNull { it.ordinal == ordinal } ?: Nop
+    }
 }
 
 /**
