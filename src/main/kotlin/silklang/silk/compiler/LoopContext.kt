@@ -1,6 +1,6 @@
 package silklang.silk.compiler
 
-class LoopContext(private val function: CompileTimeUserFunction, private val writer: ByteCodeWriter) {
+class LoopContext(private val function: CompileTimeUserFunc, private val writer: ByteCodeWriter) {
     private var continueIP: Int = 0
 
     var startIP: Int = 0

@@ -4,7 +4,7 @@ import silklang.silk.variable.Variable
 
 // Base class for several function classes. Also defines some function-related constants.
 // This class is made public so const values can be accessed externally.
-abstract class Function(var name: String) {
+abstract class Func(var name: String) {
     // Name of Main function. This function must be defined and is where execution
     // starts.
     companion object {
@@ -14,17 +14,17 @@ abstract class Function(var name: String) {
     }
 
     open val isIntrinsic: Boolean
-        get() = this is IntrinsicFunction
+        get() = this is IntrinsicFunc
 }
 
 // Represents a user function.
-open class UserFunction(name: String, var ip: Int) : Function(name) {
+open class UserFunc(name: String, var ip: Int) : Func(name) {
     var numVariables: Int = 0
     var numParameters: Int = 0
 }
 
 // Represents a user function during compilation.
-class CompileTimeUserFunction(name: String, ip: Int) : UserFunction(name, ip) {
+class CompileTimeUserFunc(name: String, ip: Int) : UserFunc(name, ip) {
     var labels: LinkedHashMap<String, Label>? = null
     var variables: LinkedHashMap<String, Variable>? = null
     var parameters: LinkedHashMap<String, Variable>? = null
@@ -52,7 +52,7 @@ class CompileTimeUserFunction(name: String, ip: Int) : UserFunction(name, ip) {
 }
 
 // Represents an intrinsic function.
-open class IntrinsicFunction(name: String, var minParameters: Int = NoParameterLimit, var maxParameters: Int = NoParameterLimit) : Function(name) {
+open class IntrinsicFunc(name: String, var minParameters: Int = NoParameterLimit, var maxParameters: Int = NoParameterLimit) : Func(name) {
     // Returns true if the given argument count is valid for this function's MinParameter
     // and MaxParameter values. If false is returned, message is set to
     // a description of how the count is invalid.
@@ -82,10 +82,10 @@ open class IntrinsicFunction(name: String, var minParameters: Int = NoParameterL
 }
 
 // Represents one of the functions internal within this library.
-class InternalFunction(name: String, var action: (Array<Variable>, Variable) -> Unit, minParameters: Int = NoParameterLimit, maxParameters: Int = NoParameterLimit) : IntrinsicFunction(name, minParameters, maxParameters)
+class InternalFunc(name: String, var action: (Array<Variable>, Variable) -> Unit, minParameters: Int = NoParameterLimit, maxParameters: Int = NoParameterLimit) : IntrinsicFunc(name, minParameters, maxParameters)
 
 // Represents a user function at run time.
-class RuntimeFunction(function: UserFunction?) {
+class RuntimeFunction(function: UserFunc?) {
     var ip: Int = 0
     var parameters: ArrayList<Variable>
     var variables: ArrayList<Variable>

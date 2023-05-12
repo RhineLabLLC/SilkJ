@@ -33,14 +33,14 @@ class Compiler {
      */
     var errors = arrayListOf<Error>()
 
-    private val intrinsicFunctions = LinkedHashMap<String, IntrinsicFunction>()
+    private val intrinsicFunctions = LinkedHashMap<String, IntrinsicFunc>()
     private val intrinsicVariables = LinkedHashMap<String, Variable>()
-    private val functions = LinkedHashMap<String, Function>()
+    private val functions = LinkedHashMap<String, Func>()
     private val variables = LinkedHashMap<String, Variable>()
     private val literals = arrayListOf<Variable>()
     private val lexer = LexicalAnalyzer()
     private val writer = ByteCodeWriter(lexer)
-    private var currentFunction: CompileTimeUserFunction? = null
+    private var currentFunction: CompileTimeUserFunc? = null
     private var inHeader = false
     private var sourceFile: String? = null
 }
