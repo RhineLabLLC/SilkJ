@@ -16,9 +16,9 @@ class InternalFunctionInfo(
 }
 
 object InternalFunctions {
-    private val internalFunctionLookup: Map<String, InternalFunctionInfo> = mapOf()
+    val internalFunctionLookup: Map<String, InternalFunctionInfo> = mapOf()
 
-    private val internalVariableLookup: Map<String, Variable> = mapOf(
+    val internalVariableLookup: Map<String, Variable> = mapOf(
         "True" to Variable(BooleanType.True),
         "False" to Variable(BooleanType.False),
     )
